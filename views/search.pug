@@ -1,0 +1,27 @@
+extends layout_navbar
+
+block content
+    div.container.sm-9
+        form(method='POST' action='/search')
+            div.search-group.form-group
+                input.form-control(id="searchterm" name="searchterm" type="text" placeholder="You can search a book by it's ISBN, title or Author.")
+                button.btn.btn-primary(type='submit') Search
+        if books
+            if books.length > 0
+                div.results-group
+                    table.table.table-hover.table-bordered.table-condensed
+                        thead
+                            tr
+                                th(scope="col") isbn
+                                th(scope="col") title
+                                th(scope="col") author
+                                th(scope="col") year
+                        tbody
+                            each book in books
+                                tr.clickable-row(onclick="document.location='/book/" + book.id + "'")
+                                    td=book.isbn
+                                    td=book.title
+                                    td=book.author
+                                    td=book.year
+            unless books.length > 0
+                p Sorry, we could not find anything with your keyword. :(

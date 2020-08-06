@@ -1,0 +1,58 @@
+extends layout_navbar
+
+block content
+    unless book
+        p Sorry there is no such book. :(
+    if book
+        div.container
+            div.row
+                div.col-sm-3
+                    div.card
+                        div.card-body
+                            h2.bold #{book.title}
+                        ul.list-group
+                            li.list-group-item Author: #{book.author}
+                            li.list-group-item Year: #{book.year}
+                            li.list-group-item ISBN num.: #{book.isbn}
+                if bookIMG
+                    div.col-sm-2
+                        div.card
+                            img.card-img(src=bookIMG)
+                div.col-sm-3
+                    div.rating-block
+                        div.card
+                            div.card-body
+                                h3 Average user rating
+                                h2.bold.paddig-bottom-7 #{avgRating}/5
+            div.row
+                div.col-sm-8
+                    hr
+                    div.review-block
+                    each critic in critics
+                        div.row
+                            div.col-sm-3
+                                div.review-block-name
+                                    h3 #{critic.username}
+                            div.col-sm-9
+                                div.review-block-rate
+                                    h5 Rating: #{critic.rating}/5
+                                div.review-block-description
+                                    p #{critic.critic}
+                        hr
+            div.row
+                div.col-sm-8
+                    form(method='POST' action='/book/' + book.id)
+                        div.row
+                            div.col-sm-3
+                                div.review-block-name
+                                    h3 You!
+                            div.col-sm-9
+                                textarea.form-control(rows='3' id='user_review' placeholder='Leave a review!\nYou can only leave 1 review!' name='user_review')
+                                label.float-left Your rating:
+                                select.form-control.input-small(id='user_rating' style="width:auto;" name='user_rating')
+                                    option 5
+                                    option 4
+                                    option 3
+                                    option 2
+                                    option 1
+                                button.btn.btn-primary.float-right(type='submit') Submit

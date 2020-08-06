@@ -1,0 +1,7 @@
+extends layout
+
+block navbar
+    nav.navbar.sticky-top.navbar-light.bg-light.justify-content-between
+        h3.navbar-brand Welcome #{user}!
+        a.btn.btn-light(href="/search" type="button") Search Book
+        a.btn.btn-primary(href="/logout" type="button") Logout
